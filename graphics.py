@@ -10,138 +10,95 @@
 
 from PyQt5 import QtCore, QtGui, QtWidgets
 
-from manual import Ui_MainWindow_Manual # Importacion de la clase manual
-import sys
+import sys,random
 import os # Libreria para el manejo de archivos
 from PyQt5.QtWidgets import QMessageBox # Libreria para mostrar un cuadro de dialogo
 import pandas as pd # Libreria para el manejo de datos
 
 
+from manual import Ui_MainWindow_Manual # Importacion de la clase manual
 from files import JoinFile  # Importación del archivo donde se realiza la consolidacion de los datos
-from carpeta import JoinFile
+from tab import App   # Importacion del archivo tab donde se llama todas las gráficas
+from connectorBDD import insertTable
+from connectorBDD import connector
+
 
 class Ui_MainWindow_Graphics(object):
-
-
-
     def setupUi(self, MainWindow):
         MainWindow.setObjectName("MainWindow")
-        MainWindow.resize(1470, 941)
+        MainWindow.resize(535, 223)
         self.centralwidget = QtWidgets.QWidget(MainWindow)
         self.centralwidget.setObjectName("centralwidget")
-        self.pushButton_2 = QtWidgets.QPushButton(self.centralwidget)
-        self.pushButton_2.setGeometry(QtCore.QRect(310, 10, 151, 41))
-        self.pushButton_2.setObjectName("pushButton_2")
         self.groupBox = QtWidgets.QGroupBox(self.centralwidget)
-        self.groupBox.setGeometry(QtCore.QRect(20, 70, 1421, 841))
+        self.groupBox.setGeometry(QtCore.QRect(0, 10, 531, 171))
         self.groupBox.setTitle("")
         self.groupBox.setAlignment(QtCore.Qt.AlignCenter)
         self.groupBox.setObjectName("groupBox")
         self.frame = QtWidgets.QFrame(self.groupBox)
-        self.frame.setGeometry(QtCore.QRect(30, 30, 651, 241))
+        self.frame.setGeometry(QtCore.QRect(30, 20, 211, 131))
         self.frame.setFrameShape(QtWidgets.QFrame.StyledPanel)
         self.frame.setFrameShadow(QtWidgets.QFrame.Raised)
         self.frame.setObjectName("frame")
-        self.graphicD1 = QtWidgets.QGraphicsView(self.frame)
-        self.graphicD1.setGeometry(QtCore.QRect(30, 30, 601, 191))
-        self.graphicD1.setObjectName("graphicD1")
-        self.label = QtWidgets.QLabel(self.frame)
-        self.label.setGeometry(QtCore.QRect(210, 10, 231, 16))
-        self.label.setAlignment(QtCore.Qt.AlignCenter)
-        self.label.setObjectName("label")
+        self.pushButtonMigracion = QtWidgets.QPushButton(self.frame)
+        self.pushButtonMigracion.setGeometry(QtCore.QRect(30, 20, 151, 41))
+        self.pushButtonMigracion.setObjectName("pushButtonMigracion")
+        self.pushButtonGraficar = QtWidgets.QPushButton(self.frame)
+        self.pushButtonGraficar.setGeometry(QtCore.QRect(30, 70, 151, 41))
+        self.pushButtonGraficar.setObjectName("pushButtonGraficar")
         self.frame_2 = QtWidgets.QFrame(self.groupBox)
-        self.frame_2.setGeometry(QtCore.QRect(30, 310, 651, 241))
+        self.frame_2.setGeometry(QtCore.QRect(270, 20, 231, 131))
         self.frame_2.setFrameShape(QtWidgets.QFrame.StyledPanel)
         self.frame_2.setFrameShadow(QtWidgets.QFrame.Raised)
         self.frame_2.setObjectName("frame_2")
-        self.graphicD1_2 = QtWidgets.QGraphicsView(self.frame_2)
-        self.graphicD1_2.setGeometry(QtCore.QRect(30, 30, 601, 191))
-        self.graphicD1_2.setObjectName("graphicD1_2")
-        self.label_2 = QtWidgets.QLabel(self.frame_2)
-        self.label_2.setGeometry(QtCore.QRect(180, 10, 231, 16))
-        self.label_2.setAlignment(QtCore.Qt.AlignCenter)
-        self.label_2.setObjectName("label_2")
-        self.frame_3 = QtWidgets.QFrame(self.groupBox)
-        self.frame_3.setGeometry(QtCore.QRect(30, 580, 651, 241))
-        self.frame_3.setFrameShape(QtWidgets.QFrame.StyledPanel)
-        self.frame_3.setFrameShadow(QtWidgets.QFrame.Raised)
-        self.frame_3.setObjectName("frame_3")
-        self.graphicD1_3 = QtWidgets.QGraphicsView(self.frame_3)
-        self.graphicD1_3.setGeometry(QtCore.QRect(30, 30, 601, 191))
-        self.graphicD1_3.setObjectName("graphicD1_3")
-        self.label_3 = QtWidgets.QLabel(self.frame_3)
-        self.label_3.setGeometry(QtCore.QRect(190, 10, 231, 16))
-        self.label_3.setAlignment(QtCore.Qt.AlignCenter)
-        self.label_3.setObjectName("label_3")
-        self.frame_4 = QtWidgets.QFrame(self.groupBox)
-        self.frame_4.setGeometry(QtCore.QRect(740, 30, 651, 241))
-        self.frame_4.setFrameShape(QtWidgets.QFrame.StyledPanel)
-        self.frame_4.setFrameShadow(QtWidgets.QFrame.Raised)
-        self.frame_4.setObjectName("frame_4")
-        self.graphicD1_4 = QtWidgets.QGraphicsView(self.frame_4)
-        self.graphicD1_4.setGeometry(QtCore.QRect(30, 30, 601, 191))
-        self.graphicD1_4.setObjectName("graphicD1_4")
-        self.label_4 = QtWidgets.QLabel(self.frame_4)
-        self.label_4.setGeometry(QtCore.QRect(220, 10, 231, 16))
-        self.label_4.setAlignment(QtCore.Qt.AlignCenter)
-        self.label_4.setObjectName("label_4")
-        self.frame_5 = QtWidgets.QFrame(self.groupBox)
-        self.frame_5.setGeometry(QtCore.QRect(740, 310, 651, 241))
-        self.frame_5.setFrameShape(QtWidgets.QFrame.StyledPanel)
-        self.frame_5.setFrameShadow(QtWidgets.QFrame.Raised)
-        self.frame_5.setObjectName("frame_5")
-        self.graphicD1_5 = QtWidgets.QGraphicsView(self.frame_5)
-        self.graphicD1_5.setGeometry(QtCore.QRect(30, 30, 601, 191))
-        self.graphicD1_5.setObjectName("graphicD1_5")
-        self.label_5 = QtWidgets.QLabel(self.frame_5)
-        self.label_5.setGeometry(QtCore.QRect(220, 10, 231, 16))
-        self.label_5.setAlignment(QtCore.Qt.AlignCenter)
-        self.label_5.setObjectName("label_5")
-        self.frame_6 = QtWidgets.QFrame(self.groupBox)
-        self.frame_6.setGeometry(QtCore.QRect(740, 580, 651, 241))
-        self.frame_6.setFrameShape(QtWidgets.QFrame.StyledPanel)
-        self.frame_6.setFrameShadow(QtWidgets.QFrame.Raised)
-        self.frame_6.setObjectName("frame_6")
-        self.graphicD1_6 = QtWidgets.QGraphicsView(self.frame_6)
-        self.graphicD1_6.setGeometry(QtCore.QRect(30, 30, 601, 191))
-        self.graphicD1_6.setObjectName("graphicD1_6")
-        self.label_6 = QtWidgets.QLabel(self.frame_6)
-        self.label_6.setGeometry(QtCore.QRect(260, 10, 231, 16))
-        self.label_6.setObjectName("label_6")
-        self.pushButton_3 = QtWidgets.QPushButton(self.centralwidget)
-        self.pushButton_3.setGeometry(QtCore.QRect(650, 10, 151, 41))
-        self.pushButton_3.setObjectName("pushButton_3")
-        self.pushButton_4 = QtWidgets.QPushButton(self.centralwidget)
-        self.pushButton_4.setGeometry(QtCore.QRect(940, 10, 151, 41))
-        self.pushButton_4.setObjectName("pushButton_4")
+        self.pushButtonManual = QtWidgets.QPushButton(self.frame_2)
+        self.pushButtonManual.setGeometry(QtCore.QRect(40, 20, 151, 41))
+        self.pushButtonManual.setObjectName("pushButtonManual")
+        self.pushButtonSalir = QtWidgets.QPushButton(self.frame_2)
+        self.pushButtonSalir.setGeometry(QtCore.QRect(40, 70, 151, 41))
+        self.pushButtonSalir.setObjectName("pushButtonSalir")
         MainWindow.setCentralWidget(self.centralwidget)
         self.menubar = QtWidgets.QMenuBar(MainWindow)
-        self.menubar.setGeometry(QtCore.QRect(0, 0, 1470, 22))
+        self.menubar.setGeometry(QtCore.QRect(0, 0, 535, 22))
         self.menubar.setObjectName("menubar")
         MainWindow.setMenuBar(self.menubar)
         self.statusbar = QtWidgets.QStatusBar(MainWindow)
         self.statusbar.setObjectName("statusbar")
         MainWindow.setStatusBar(self.statusbar)
 
-
-        self.msg = QMessageBox() # Inicializacion de cuadro de dialogo
+        self.msg = QMessageBox() # Inicializacion del cuadro de dialogo
+        self.pushButtonGraficar.setEnabled(False)
 
         self.retranslateUi(MainWindow)
-        self.pushButton_2.clicked.connect(self.mybutton_clicked_Graficar) # Evento de pulsar el boton graficar
-        self.pushButton_3.clicked.connect(self.mybutton_clicked_Manual_Usuario) # Evento de pulsar el boton manual de usuario
-        self.pushButton_4.clicked.connect(self.mybutton_clicked_Salir) # Evento de pulsar el boton salir del programa
+
+        self.pushButtonMigracion.clicked.connect(self.mybutton_clicked_Migrar) # Evento de pulsar el boton graficar
+        self.pushButtonGraficar.clicked.connect(self.mybutton_clicked_Graficar) # Evento de pulsar el boton graficar
+        self.pushButtonManual.clicked.connect(self.mybutton_clicked_Manual_Usuario) # Evento de pulsar el boton manual de usuario
+        self.pushButtonSalir.clicked.connect(self.mybutton_clicked_Salir) # Evento de pulsar el boton salir del programa
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
 
-    def mybutton_clicked_Graficar(self):
+
+    def mybutton_clicked_Migrar(self): # Funcion para almacernar el contenido de los archivos xls y xlsx
         try:
             fname = QtWidgets.QFileDialog.getExistingDirectory()
             files = os.listdir(fname)  
-            JoinFile(files)
+            self.df_total=JoinFile(files)
+            self.conn = connector()  # Generando conexión a la BDD
+            insertTable(self.conn,self.df_total) # Inserción a la BDD
+            self.msg.setText("Migración Correcta..!!")
+            x = self.msg.exec_()
+            self.pushButtonGraficar.setEnabled(True)  # Se activa el boton graficar una vez realizada la migración
+            
 
         except Exception as e:
+            self.pushButtonGraficar.setEnabled(False)
             self.msg.setText("Por favor seleccione el archivo correcto")
             x = self.msg.exec_()
             print(e)
+
+    def mybutton_clicked_Graficar(self):
+        self.ventana= QtWidgets.QMainWindow()
+        self.ui = App()
+
 
     def mybutton_clicked_Manual_Usuario(self): # Funcion para capturar el click del boton manual de usuario
         self.ventana= QtWidgets.QMainWindow()
@@ -149,20 +106,13 @@ class Ui_MainWindow_Graphics(object):
         self.ui.setupUi(self.ventana)
         self.ventana.show()
         
-
-
     def mybutton_clicked_Salir(self): # Funcion para capturar el click del boton salir
         sys.exit()
 
     def retranslateUi(self, MainWindow):
         _translate = QtCore.QCoreApplication.translate
         MainWindow.setWindowTitle(_translate("MainWindow", "Info UTPL"))
-        self.pushButton_2.setText(_translate("MainWindow", "Graficar"))
-        self.label.setText(_translate("MainWindow", "Reservaciones por ciclo"))
-        self.label_2.setText(_translate("MainWindow", "Horas de Uso"))
-        self.label_3.setText(_translate("MainWindow", "Estudiantes"))
-        self.label_4.setText(_translate("MainWindow", "Reservaciones por Laboratorio"))
-        self.label_5.setText(_translate("MainWindow", "Horas uso por Laboratorio"))
-        self.label_6.setText(_translate("MainWindow", "Horas de uso por mes"))
-        self.pushButton_3.setText(_translate("MainWindow", "Manual de Usuario"))
-        self.pushButton_4.setText(_translate("MainWindow", "Salir"))
+        self.pushButtonMigracion.setText(_translate("MainWindow", "Migración de Datos"))
+        self.pushButtonGraficar.setText(_translate("MainWindow", "Gráficar"))
+        self.pushButtonManual.setText(_translate("MainWindow", "Manual de Usuario"))
+        self.pushButtonSalir.setText(_translate("MainWindow", "Salir"))

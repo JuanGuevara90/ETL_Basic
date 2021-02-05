@@ -49,13 +49,14 @@ class Ui_MainWindow_Manual(object):
         MainWindow.setStatusBar(self.statusbar)
 
         self.retranslateUi(MainWindow)
+        self.main=MainWindow  # Inicializar la variable para tener acceso a la pantalla
 
-        self.pushButton.clicked.connect(self.mybutton_clicked_Regresar(MainWindow)) # Evento de pulsar el boton regresar
+        self.pushButton.clicked.connect(self.mybutton_clicked_Regresar) # Evento de pulsar el boton regresar
         self.pushButton_2.clicked.connect(self.mybutton_clicked_Salir) # Evento de pulsar el boton salir 
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
 
-    def mybutton_clicked_Regresar(self,MainWindow): # Funcion para capturar el click del boton regresar
-        MainWindow.close()
+    def mybutton_clicked_Regresar(self):
+        self.main.close()  # Cerrar la pantalla
 
 
     def mybutton_clicked_Salir(self): # Funcion para capturar el click del boton salir
