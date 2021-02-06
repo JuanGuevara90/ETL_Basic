@@ -39,6 +39,29 @@ def insertTable(conn,df):
 
 
 #------------------------------------------------------------ Consultas a la BDD ------------------------------------------------------------------------------
+# Contar el numero de periodo
+def contarPeriodos(conn):
+    try:
+        my_data = pd.read_sql("SELECT DISTINCT Periodo FROM data_reg",conn)
+        #print(my_data)
+        return my_data
+    except Exception as e:
+        conn.close()
+        print(e)
+        return "Error"
+
+def contarLaboratorios(conn):
+    try:
+        my_data = pd.read_sql("SELECT DISTINCT Image FROM data_reg",conn)
+        #print(my_data)
+        return my_data
+    except Exception as e:
+        conn.close()
+        print(e)
+        return "Error"
+
+
+
 #Reservaciones por ciclo bien
 
 def reservacionesPorCiclo(conn):
@@ -51,10 +74,10 @@ def reservacionesPorCiclo(conn):
         print(e)
         return "Error"
 
-#Reservaciones por Laboratorio: # Ojo
+#Reservaciones por Laboratorio: 
 def reservacionesPorLaboratorio(conn):
     try:
-        my_data = pd.read_sql("SELECT Image, Periodo,count(*)  as contador FROM data_reg group by Periodo,Image order by Image asc",conn)
+        my_data = pd.read_sql("SELECT Image, Periodo,count(*)  as contador FROM data_reg group by Periodo,Image order by Image, Ano asc",conn)
         #print(my_data)
         return my_data
     except Exception as e:
@@ -67,7 +90,7 @@ def reservacionesPorLaboratorio(conn):
 def horasDeUso(conn):
     try:
         #my_data = pd.read_sql("SELECT Date_start_reservation, Date_end_reservations,TIMESTAMPDIFF(HOUR, Date_start_reservation, Date_end_reservations )   FROM data_reg ",conn)
-        my_data = pd.read_sql("SELECT Periodo,sum(TIMESTAMPDIFF(HOUR, Date_start_reservation, Date_end_reservations )) AS DIFERENCIA_HORAS   FROM data_reg group by Periodo",conn)
+        my_data = pd.read_sql("SELECT Periodo,sum(TIMESTAMPDIFF(HOUR, Date_start_reservation, Date_end_reservations )) AS contador   FROM data_reg group by Periodo order by Ano asc",conn)
         #print(my_data)
         return my_data
     except Exception as e:
@@ -76,10 +99,10 @@ def horasDeUso(conn):
         return "Error"
 
 
-#Horas de uso por laboratorio #Ojo
+#Horas de uso por laboratorio
 def horasDeUsoPorLaboratorio(conn):
     try:
-        my_data = pd.read_sql("SELECT Image,Periodo, SUM(TIMESTAMPDIFF(HOUR, Date_start_reservation, Date_end_reservations )) as DIFERENCIA_HORAS  FROM data_reg group by Periodo,Image order by Image asc",conn)
+        my_data = pd.read_sql("SELECT Image,Periodo, SUM(TIMESTAMPDIFF(HOUR, Date_start_reservation, Date_end_reservations )) as contador  FROM data_reg group by Periodo,Image order by Image asc",conn)
         #my_data = pd.read_sql("SELECT Periodo,sum(TIMESTAMPDIFF(HOUR, Date_start_reservation, Date_end_reservations ))   FROM data_reg group by Periodo",conn)
         #print(my_data)
         return my_data
@@ -92,7 +115,7 @@ def horasDeUsoPorLaboratorio(conn):
 #Estudiantes
 def estudiantes(conn):
     try:
-        my_data = pd.read_sql("SELECT Periodo, count(User)  FROM data_reg group by Periodo order by Periodo asc",conn)
+        my_data = pd.read_sql("SELECT Periodo, count(distinct User) as contador FROM data_reg group by Periodo order by Ano, Mes asc",conn)
         #print(my_data)
         return my_data
     except Exception as e:
@@ -104,7 +127,7 @@ def estudiantes(conn):
 #Horas de Uso por Mes
 def horasUsoPorMes(conn):
     try:
-        my_data = pd.read_sql("SELECT Ano,Mes, SUM(TIMESTAMPDIFF(HOUR, Date_start_reservation, Date_end_reservations )) as DIFERENCIA_HORAS  FROM data_reg group by Ano,Mes order by Ano,Mes asc",conn)
+        my_data = pd.read_sql("SELECT Ano,Mes, SUM(TIMESTAMPDIFF(HOUR, Date_start_reservation, Date_end_reservations )) as contador  FROM data_reg group by Ano,Mes order by Ano,Mes asc",conn)
         #my_data = pd.read_sql("SELECT Periodo,sum(TIMESTAMPDIFF(HOUR, Date_start_reservation, Date_end_reservations ))   FROM data_reg group by Periodo",conn)
         #print(my_data)
         return my_data
@@ -116,8 +139,11 @@ def horasUsoPorMes(conn):
 
 
 conn =connector()
-reservacionesPorCiclo(conn)
+horasUsoPorMes(conn)
+#reservacionesPorCiclo(conn)
 #reservacionesPorLaboratorio(conn)
+#contarPeriodos(conn)
+#contarLaboratorios(conn)
 #horasDeUsoPorLaboratorio(conn)
 #horasDeUso(conn)
 #estudiantes(conn)
