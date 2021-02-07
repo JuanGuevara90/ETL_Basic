@@ -48,6 +48,10 @@ class Ui_MainWindow_Manual(object):
         self.statusbar.setObjectName("statusbar")
         MainWindow.setStatusBar(self.statusbar)
 
+        #self.plainTextEdit.appendPlainText(("Hola \n que tal")
+        self.plainTextEdit.insertPlainText("You can write text here.\n")
+
+
         self.retranslateUi(MainWindow)
         self.main=MainWindow  # Inicializar la variable para tener acceso a la pantalla
 
