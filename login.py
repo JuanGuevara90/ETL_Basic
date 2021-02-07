@@ -18,14 +18,17 @@ class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
         #Parametros de configuracion de la ventana y tambien los elementos que la constituyen
         MainWindow.setObjectName("MainWindow")
-        MainWindow.resize(436, 272)
+        MainWindow.resize(436, 300)
+        MainWindow.setStyleSheet("background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:0, stop:0 rgba(255, 255, 255, 255), stop:1 rgba(0, 0, 200, 100));")
+        
         self.centralwidget = QtWidgets.QWidget(MainWindow)
         self.centralwidget.setObjectName("centralwidget")
         self.pushButtonIngresar = QtWidgets.QPushButton(self.centralwidget)
-        self.pushButtonIngresar.setGeometry(QtCore.QRect(40, 200, 113, 32))
+        self.pushButtonIngresar.setGeometry(QtCore.QRect(40, 200, 100, 50))
         self.pushButtonIngresar.setObjectName("pushButtonIngresar")
+
         self.pushButtonSalir = QtWidgets.QPushButton(self.centralwidget)
-        self.pushButtonSalir.setGeometry(QtCore.QRect(290, 200, 113, 32))
+        self.pushButtonSalir.setGeometry(QtCore.QRect(290, 200, 100, 50))
         self.pushButtonSalir.setObjectName("pushButtonSalir")
         self.frame = QtWidgets.QFrame(self.centralwidget)
         self.frame.setGeometry(QtCore.QRect(60, 70, 311, 111))
@@ -42,9 +45,11 @@ class Ui_MainWindow(object):
         self.lineEditPassword.setGeometry(QtCore.QRect(90, 60, 191, 21))
         self.lineEditPassword.setEchoMode(QtWidgets.QLineEdit.Password)
         self.lineEditPassword.setObjectName("lineEditPassword")
+        self.lineEditPassword.setStyleSheet("QLineEdit{background:white}")
         self.lineEditUsuario = QtWidgets.QLineEdit(self.frame)
         self.lineEditUsuario.setGeometry(QtCore.QRect(90, 30, 191, 21))
         self.lineEditUsuario.setObjectName("lineEditUsuario")
+        self.lineEditUsuario.setStyleSheet("QLineEdit{background:white}")
         self.label_3 = QtWidgets.QLabel(self.centralwidget)
         self.label_3.setGeometry(QtCore.QRect(80, 20, 261, 41))
         font = QtGui.QFont()
@@ -53,22 +58,22 @@ class Ui_MainWindow(object):
         self.label_3.setAlignment(QtCore.Qt.AlignCenter)
         self.label_3.setObjectName("label_3")
         self.pushButtonLimpiar = QtWidgets.QPushButton(self.centralwidget)
-        self.pushButtonLimpiar.setGeometry(QtCore.QRect(160, 200, 113, 32))
+        self.pushButtonLimpiar.setGeometry(QtCore.QRect(160, 200, 100, 50))
         self.pushButtonLimpiar.setObjectName("pushButtonLimpiar")
         MainWindow.setCentralWidget(self.centralwidget)
         self.statusbar = QtWidgets.QStatusBar(MainWindow)
         self.statusbar.setObjectName("statusbar")
         MainWindow.setStatusBar(self.statusbar)
-        self.lineEditUsuario.setText('John')
+
 
         self.msg = QMessageBox() # Inicializacion de cuadro de dialogo
 
-
-        self.retranslateUi(MainWindow)
         self.pushButtonIngresar.clicked.connect(self.mybutton_clicked_Ingresar) # Evento de pulsar el boton ingresar
         self.pushButtonLimpiar.clicked.connect(self.mybutton_clicked_Limpiar) # Evento de pulsar el boton limpiar
         self.pushButtonSalir.clicked.connect(self.mybutton_clicked_Salir) # Evento de pulsar el boton salir
+        self.retranslateUi(MainWindow)
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
+
 
     def mybutton_clicked_Ingresar(self): # Funcion para capturar el click del boton ingresar
         self.ventana= QtWidgets.QMainWindow()
@@ -86,12 +91,10 @@ class Ui_MainWindow(object):
 
             MainWindow.close() # Cerrar la pantalla de login
             self.ventana.show() # Abrir la ventana de gráficos
-            print(self.usuario + ' es una dirección válida.')
         else:
             self.msg.setWindowTitle("Alerta...!!!")
             self.msg.setText("Por favor verfique los datos ingresados")
             self.x = self.msg.exec_()
-            print(self.usuario + ' no es una dirección válida.')
         
     def mybutton_clicked_Limpiar(self): # Funcion para capturar el click del boton ingresar
         self.retranslateUi(MainWindow)
@@ -112,6 +115,10 @@ class Ui_MainWindow(object):
         self.pushButtonLimpiar.setText(_translate("MainWindow", "Limpiar"))
         self.lineEditUsuario.setText('')
         self.lineEditPassword.setText('')
+        
+        self.pushButtonIngresar.setStyleSheet(_translate("MainWindow","QPushButton{background-color : qlineargradient(spread:pad,x1:0, y1:0, x2:1, y2:0, stop:0 white, stop: 1 #F20505);}QPushButton::pressed{background-color : red;}"))
+        self.pushButtonSalir.setStyleSheet(_translate("MainWindow","QPushButton{background-color : qlineargradient(spread:pad,x1:0, y1:0, x2:1, y2:0, stop:0 white, stop: 1 #F2E52E);}QPushButton::pressed{background-color : red;}"))
+        self.pushButtonLimpiar.setStyleSheet(_translate("MainWindow","QPushButton{background-color : qlineargradient(spread:pad,x1:0, y1:0, x2:1, y2:0, stop:0 white, stop: 1 #F2BE22);}QPushButton::pressed{background-color : red;}"))
 
 if __name__ == "__main__":
     import sys
