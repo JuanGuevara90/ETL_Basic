@@ -14,43 +14,55 @@ from PyQt5 import QtCore, QtGui, QtWidgets
 class Ui_MainWindow_Manual(object):
     def setupUi(self, MainWindow):
         MainWindow.setObjectName("MainWindow")
-        MainWindow.resize(800, 493)
+        MainWindow.resize(800, 495)
         self.centralwidget = QtWidgets.QWidget(MainWindow)
         self.centralwidget.setObjectName("centralwidget")
+        self.centralwidget.setStyleSheet("background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:0, stop:0 rgba(255, 255, 255, 255),stop:1 rgba(0, 0, 250,250));")
+        
         self.frame = QtWidgets.QFrame(self.centralwidget)
-        self.frame.setGeometry(QtCore.QRect(30, 20, 741, 361))
+        self.frame.setGeometry(QtCore.QRect(30, 20, 740, 360))
         self.frame.setFrameShape(QtWidgets.QFrame.StyledPanel)
         self.frame.setFrameShadow(QtWidgets.QFrame.Raised)
         self.frame.setObjectName("frame")
+        #self.frame.setStyleSheet("QFrame{background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:0, stop:0 rgba(255, 255, 255, 255),stop:1 rgba(0, 0, 255, 250));}")
         self.plainTextEdit = QtWidgets.QPlainTextEdit(self.frame)
-        self.plainTextEdit.setGeometry(QtCore.QRect(50, 60, 641, 261))
+        self.plainTextEdit.setGeometry(QtCore.QRect(50, 60, 640, 260))
         self.plainTextEdit.setVerticalScrollBarPolicy(QtCore.Qt.ScrollBarAlwaysOn)
         self.plainTextEdit.setObjectName("plainTextEdit")
         self.label = QtWidgets.QLabel(self.frame)
-        self.label.setGeometry(QtCore.QRect(240, 20, 241, 21))
+        self.label.setGeometry(QtCore.QRect(240, 20, 240, 20))
         font = QtGui.QFont()
         font.setPointSize(28)
         self.label.setFont(font)
         self.label.setAlignment(QtCore.Qt.AlignCenter)
         self.label.setObjectName("label")
         self.pushButton = QtWidgets.QPushButton(self.centralwidget)
-        self.pushButton.setGeometry(QtCore.QRect(170, 400, 113, 32))
+        self.pushButton.setGeometry(QtCore.QRect(170, 400, 115, 35))
         self.pushButton.setObjectName("pushButton")
         self.pushButton_2 = QtWidgets.QPushButton(self.centralwidget)
-        self.pushButton_2.setGeometry(QtCore.QRect(470, 400, 113, 32))
+        self.pushButton_2.setGeometry(QtCore.QRect(470, 400, 115, 35))
         self.pushButton_2.setObjectName("pushButton_2")
         MainWindow.setCentralWidget(self.centralwidget)
         self.menubar = QtWidgets.QMenuBar(MainWindow)
-        self.menubar.setGeometry(QtCore.QRect(0, 0, 800, 22))
+        self.menubar.setGeometry(QtCore.QRect(0, 0, 800, 20))
         self.menubar.setObjectName("menubar")
         MainWindow.setMenuBar(self.menubar)
         self.statusbar = QtWidgets.QStatusBar(MainWindow)
         self.statusbar.setObjectName("statusbar")
         MainWindow.setStatusBar(self.statusbar)
 
-        #self.plainTextEdit.appendPlainText(("Hola \n que tal")
-        self.plainTextEdit.insertPlainText("You can write text here.\n")
+        self.plainTextEdit.setStyleSheet("QPlainTextEdit{background-color: rgb(255, 255, 255);}")
 
+        P1="1) Ingresar el usuario y contraseña: Ojo el usuario de contener\n el dominio de la Universidad [usuario]@utpl.edu.ec\n\n"
+        self.plainTextEdit.insertPlainText(P1)
+        P2="2)Posterior al ingreso se tendra las opciones: Migración, Graficar, Manual y Salir\n\n"
+        self.plainTextEdit.insertPlainText(P2)
+        P3="3)En la opción de Migración el programa leer el archivo de excel para luego insertar en la BDD\n\n"
+        self.plainTextEdit.insertPlainText(P3)
+        P4="4)Una vez migrado los datos se activa el boton Graficar el cual permitira ver los gráficos estadísticos\n\n"
+        self.plainTextEdit.insertPlainText(P4)
+        P5="5)Una vez migrado los datos se activa el boton Graficar el cual permitira ver los gráficos estadísticos\n\n"
+        self.plainTextEdit.insertPlainText(P5)
 
         self.retranslateUi(MainWindow)
         self.main=MainWindow  # Inicializar la variable para tener acceso a la pantalla
@@ -72,3 +84,15 @@ class Ui_MainWindow_Manual(object):
         self.label.setText(_translate("MainWindow", "INFO UTPL"))
         self.pushButton.setText(_translate("MainWindow", "Regresar"))
         self.pushButton_2.setText(_translate("MainWindow", "Salir"))
+        self.pushButton.setStyleSheet(_translate("centralwidget","QPushButton{background-color : qlineargradient(spread:pad,x1:0, y1:0, x2:1, y2:0, stop:0 white, stop: 1 #F2CF1D); border-style: solid; border-radius:21px ; font-weight: bold;} QPushButton::pressed{background-color : orange;}"))
+        self.pushButton_2.setStyleSheet(_translate("centralwidget","QPushButton{background-color : qlineargradient(spread:pad,x1:0, y1:0, x2:1, y2:0, stop:0 white, stop: 1 #04BF8A); border-style: solid; border-radius:21px ; font-weight: bold;} QPushButton::pressed{background-color : green;}"))
+
+
+if __name__ == "__main__":
+    import sys
+    app = QtWidgets.QApplication(sys.argv)
+    MainWindow = QtWidgets.QMainWindow()
+    ui = Ui_MainWindow_Manual()
+    ui.setupUi(MainWindow)
+    MainWindow.show()
+    sys.exit(app.exec_())
