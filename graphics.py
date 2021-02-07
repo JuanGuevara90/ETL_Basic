@@ -27,34 +27,42 @@ class Ui_MainWindow_Graphics(object):
     def setupUi(self, MainWindow):
         MainWindow.setObjectName("MainWindow")
         MainWindow.resize(535, 223)
+        
         self.centralwidget = QtWidgets.QWidget(MainWindow)
         self.centralwidget.setObjectName("centralwidget")
+        self.centralwidget.setStyleSheet("background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:0, stop:0 rgba(255, 255, 255, 255),stop:0.25 rgba(0, 0, 150, 100) ,stop:0.5 rgba(0, 0, 100, 100) ,stop:0.75 rgba(0, 0, 50, 100) ,stop:1 rgba(0, 0, 0, 100));")
         self.groupBox = QtWidgets.QGroupBox(self.centralwidget)
-        self.groupBox.setGeometry(QtCore.QRect(0, 10, 531, 171))
+        self.groupBox.setGeometry(QtCore.QRect(0, 10, 530, 170))
         self.groupBox.setTitle("")
         self.groupBox.setAlignment(QtCore.Qt.AlignCenter)
         self.groupBox.setObjectName("groupBox")
+        
         self.frame = QtWidgets.QFrame(self.groupBox)
-        self.frame.setGeometry(QtCore.QRect(30, 20, 211, 131))
+        self.frame.setGeometry(QtCore.QRect(30, 20, 230, 130))
         self.frame.setFrameShape(QtWidgets.QFrame.StyledPanel)
         self.frame.setFrameShadow(QtWidgets.QFrame.Raised)
         self.frame.setObjectName("frame")
-        self.pushButtonMigracion = QtWidgets.QPushButton(self.frame)
-        self.pushButtonMigracion.setGeometry(QtCore.QRect(30, 20, 151, 41))
-        self.pushButtonMigracion.setObjectName("pushButtonMigracion")
-        self.pushButtonGraficar = QtWidgets.QPushButton(self.frame)
-        self.pushButtonGraficar.setGeometry(QtCore.QRect(30, 70, 151, 41))
-        self.pushButtonGraficar.setObjectName("pushButtonGraficar")
+
         self.frame_2 = QtWidgets.QFrame(self.groupBox)
-        self.frame_2.setGeometry(QtCore.QRect(270, 20, 231, 131))
+        self.frame_2.setGeometry(QtCore.QRect(270, 20, 230, 130))
         self.frame_2.setFrameShape(QtWidgets.QFrame.StyledPanel)
         self.frame_2.setFrameShadow(QtWidgets.QFrame.Raised)
         self.frame_2.setObjectName("frame_2")
+        
+
+
+        self.pushButtonMigracion = QtWidgets.QPushButton(self.frame)
+        self.pushButtonMigracion.setGeometry(QtCore.QRect(30, 20, 150, 40))
+        self.pushButtonMigracion.setObjectName("pushButtonMigracion")
+        self.pushButtonGraficar = QtWidgets.QPushButton(self.frame)
+        self.pushButtonGraficar.setGeometry(QtCore.QRect(30, 70, 150, 40))
+        self.pushButtonGraficar.setObjectName("pushButtonGraficar")
+        
         self.pushButtonManual = QtWidgets.QPushButton(self.frame_2)
-        self.pushButtonManual.setGeometry(QtCore.QRect(40, 20, 151, 41))
+        self.pushButtonManual.setGeometry(QtCore.QRect(40, 20, 150, 40))
         self.pushButtonManual.setObjectName("pushButtonManual")
         self.pushButtonSalir = QtWidgets.QPushButton(self.frame_2)
-        self.pushButtonSalir.setGeometry(QtCore.QRect(40, 70, 151, 41))
+        self.pushButtonSalir.setGeometry(QtCore.QRect(40, 70, 150, 40))
         self.pushButtonSalir.setObjectName("pushButtonSalir")
         MainWindow.setCentralWidget(self.centralwidget)
         self.menubar = QtWidgets.QMenuBar(MainWindow)
@@ -66,7 +74,7 @@ class Ui_MainWindow_Graphics(object):
         MainWindow.setStatusBar(self.statusbar)
 
         self.msg = QMessageBox() # Inicializacion del cuadro de dialogo
-        self.pushButtonGraficar.setEnabled(False)
+        self.pushButtonGraficar.setEnabled(False) # Desactivar el boton de gráficar
 
         self.retranslateUi(MainWindow)
 
@@ -112,7 +120,23 @@ class Ui_MainWindow_Graphics(object):
     def retranslateUi(self, MainWindow):
         _translate = QtCore.QCoreApplication.translate
         MainWindow.setWindowTitle(_translate("MainWindow", "Info UTPL"))
-        self.pushButtonMigracion.setText(_translate("MainWindow", "Migración de Datos"))
-        self.pushButtonGraficar.setText(_translate("MainWindow", "Gráficar"))
+        self.pushButtonMigracion.setText(_translate("MainWindow", "Migracion de Datos"))
+        self.pushButtonGraficar.setText(_translate("MainWindow", "Graficar"))
         self.pushButtonManual.setText(_translate("MainWindow", "Manual de Usuario"))
         self.pushButtonSalir.setText(_translate("MainWindow", "Salir"))
+        self.pushButtonMigracion.setStyleSheet(_translate("MainWindow","QPushButton{background-color : qlineargradient(spread:pad,x1:0, y1:0, x2:1, y2:0, stop:0 white, stop: 1 #F2CF1D); border-style: solid; border-radius:21px ; font-weight: bold;} QPushButton::pressed{background-color : orange;}"))
+        self.pushButtonGraficar.setStyleSheet(_translate("MainWindow","QPushButton{background-color : qlineargradient(spread:pad,x1:0, y1:0, x2:1, y2:0, stop:0 white, stop: 1 #04BF8A); border-style: solid; border-radius:21px ; font-weight: bold;} QPushButton::pressed{background-color : green;}"))
+        self.pushButtonManual.setStyleSheet(_translate("MainWindow","QPushButton{background-color : qlineargradient(spread:pad,x1:0, y1:0, x2:1, y2:0, stop:0 white, stop: 1 #F2CF1D); border-style: solid; border-radius:21px ; font-weight: bold;} QPushButton::pressed{background-color : orange;}"))
+        self.pushButtonSalir.setStyleSheet(_translate("MainWindow","QPushButton{background-color : qlineargradient(spread:pad,x1:0, y1:0, x2:1, y2:0, stop:0 white, stop: 1 #04BF8A); border-style: solid; border-radius:21px ; font-weight: bold;} QPushButton::pressed{background-color : green;}"))
+
+
+
+
+if __name__ == "__main__":
+    import sys
+    app = QtWidgets.QApplication(sys.argv)
+    MainWindow = QtWidgets.QMainWindow()
+    ui = Ui_MainWindow_Graphics()
+    ui.setupUi(MainWindow)
+    MainWindow.show()
+    sys.exit(app.exec_())
