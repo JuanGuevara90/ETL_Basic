@@ -136,15 +136,3 @@ def horasUsoPorMes(conn):
         print(e)
         return "Error"
     
-
-
-conn =connector()
-horasUsoPorMes(conn)
-#reservacionesPorCiclo(conn)
-#reservacionesPorLaboratorio(conn)
-#contarPeriodos(conn)
-#contarLaboratorios(conn)
-#horasDeUsoPorLaboratorio(conn)
-#horasDeUso(conn)
-#estudiantes(conn)
-#insertTable(conn)
