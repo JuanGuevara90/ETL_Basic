@@ -116,9 +116,9 @@ class Ui_MainWindow(object):
         self.lineEditUsuario.setText('')
         self.lineEditPassword.setText('')
         
-        self.pushButtonIngresar.setStyleSheet(_translate("MainWindow","QPushButton{background-color : qlineargradient(spread:pad,x1:0, y1:0, x2:1, y2:0, stop:0 white, stop: 1 #F20505);}QPushButton::pressed{background-color : red;}"))
-        self.pushButtonSalir.setStyleSheet(_translate("MainWindow","QPushButton{background-color : qlineargradient(spread:pad,x1:0, y1:0, x2:1, y2:0, stop:0 white, stop: 1 #F2E52E);}QPushButton::pressed{background-color : red;}"))
-        self.pushButtonLimpiar.setStyleSheet(_translate("MainWindow","QPushButton{background-color : qlineargradient(spread:pad,x1:0, y1:0, x2:1, y2:0, stop:0 white, stop: 1 #F2BE22);}QPushButton::pressed{background-color : red;}"))
+        self.pushButtonIngresar.setStyleSheet(_translate("MainWindow","QPushButton{background-color : qlineargradient(spread:pad,x1:0, y1:0, x2:1, y2:0, stop:0 white, stop: 1 rgb(185,37,37)); border-style: solid;border-radius:21px;font-weight: bold;}QPushButton::pressed{background-color : red;}"))
+        self.pushButtonSalir.setStyleSheet(_translate("MainWindow","QPushButton{background-color : qlineargradient(spread:pad,x1:0, y1:0, x2:1, y2:0, stop:0 white, stop: 1 rgb(67,180,72));border-style: solid;border-radius:21px;font-weight: bold;}QPushButton::pressed{background-color : rgb(0,255,0);}"))
+        self.pushButtonLimpiar.setStyleSheet(_translate("MainWindow","QPushButton{background-color : qlineargradient(spread:pad,x1:0, y1:0, x2:1, y2:0, stop:0 white, stop: 1 #F2BE22);border-style: solid;border-radius:21px;font-weight: bold;}QPushButton::pressed{background-color : yellow;}"))
 
 if __name__ == "__main__":
     import sys
