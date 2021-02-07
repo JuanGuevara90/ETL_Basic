@@ -1,8 +1,10 @@
 import os
 import pandas as pd
-def JoinFile(files):
+def JoinFile(fname,files):
     df_total = pd.DataFrame()
-    for file in files:                         # loop through Excel files
+    for f in files:         
+        file=os.path.join(str(fname),str(f))              # loop through Excel files
+        print(file)
         if file.endswith('.xls') or file.endswith(".xlsx"):
             excel_file = pd.ExcelFile(file)
             sheets = excel_file.sheet_names
@@ -10,6 +12,5 @@ def JoinFile(files):
                 df = excel_file.parse(sheet_name = sheet)
                 df_total = df_total.append(df)
 
-    print(df_total)
     return df_total
     #df_total.to_excel('combined_file.xlsx')
