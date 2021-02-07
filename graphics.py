@@ -80,8 +80,8 @@ class Ui_MainWindow_Graphics(object):
     def mybutton_clicked_Migrar(self): # Funcion para almacernar el contenido de los archivos xls y xlsx
         try:
             fname = QtWidgets.QFileDialog.getExistingDirectory()
-            files = os.listdir(fname)  
-            self.df_total=JoinFile(files)
+            files = os.listdir(fname)
+            self.df_total=JoinFile(fname,files)
             self.conn = connector()  # Generando conexión a la BDD
             insertTable(self.conn,self.df_total) # Inserción a la BDD
             self.msg.setText("Migración Correcta..!!")
