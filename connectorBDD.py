@@ -8,7 +8,7 @@ import datetime as dt # Libreria para el manejo de fechas
 def connector():
     try:
         conn = mysql.connector.connect(
-            host="localhost",
+            host="localhost", #Cambiar a otra PC por la IP
             user="root",
             password="",
             database="info_utpl",
