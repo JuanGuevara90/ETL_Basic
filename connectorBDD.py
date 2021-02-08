@@ -27,8 +27,10 @@ def insertTable(conn,df):
         sql= """INSERT INTO data_reg (User_Group,User,Image,Hours,Reservations,Date_start_reservation,Date_end_reservations,Ano,Mes,Dia,Periodo) VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)"""
         mycursor = conn.cursor()
         for index, row in df_total.iterrows():
-            Date_start_reservation=pd.to_datetime(row['Date_start_reservation'],yearfirst = True) # Se establece el formato de datetime
-            Date_end_reservations=pd.to_datetime(row['Date_end_reservations'],yearfirst = True) # Se establece el formato de datetime
+            formatted_date_star=pd.to_datetime(row['Date_start_reservation'],yearfirst = True) # Se establece el formato de datetime
+            Date_start_reservation = formatted_date_star.strftime('%Y-%m-%d %H:%M:%S')
+            formatted_date_end=pd.to_datetime(row['Date_end_reservations'],yearfirst = True) # Se establece el formato de datetime
+            Date_end_reservations= formatted_date_end.strftime('%Y-%m-%d %H:%M:%S')
             mycursor.execute(sql, (row['User Group'],row['User'],row['Image'],row['Hours'],row['Reservations'],Date_start_reservation,Date_end_reservations,row['Año'],row['Mes'],row['Dia'],row['Periodo']))
             
         conn.commit()
