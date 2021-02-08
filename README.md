@@ -1,5 +1,19 @@
 # ETL_Basic
 
+Version de Python 3.5.6
+
+Librerias----
+PyQt5
+QtChart
+os
+re
+mysql.connector
+pandas
+xlrd
+sys
+
+
+
 Comando para importar UI a PY
 
 pyuic5 login.ui -o login.py
