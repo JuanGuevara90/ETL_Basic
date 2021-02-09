@@ -23,6 +23,7 @@ from connectorBDD import insertTable
 from connectorBDD import connector
 
 
+
 class Ui_MainWindow_Graphics(object):
     def setupUi(self, MainWindow):
         MainWindow.setObjectName("MainWindow")
@@ -130,3 +131,11 @@ class Ui_MainWindow_Graphics(object):
         self.pushButtonSalir.setStyleSheet(_translate("MainWindow","QPushButton{background-color : qlineargradient(spread:pad,x1:0, y1:0, x2:1, y2:0, stop:0 white, stop: 1 #04BF8A); border-style: solid; border-radius:21px ; font-weight: bold;} QPushButton::pressed{background-color : green;}"))
 
 
+if __name__ == "__main__":
+    import sys
+    app = QtWidgets.QApplication(sys.argv)
+    MainWindow = QtWidgets.QMainWindow()
+    ui = Ui_MainWindow_Graphics()
+    ui.setupUi(MainWindow)
+    MainWindow.show()
+    sys.exit(app.exec_())
