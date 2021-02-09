@@ -13,6 +13,9 @@ from graphics import Ui_MainWindow_Graphics # Importación de la pantalla de gr�
 import re  # Libreria para el manejo de Expresiones regulares
 from PyQt5.QtWidgets import QMessageBox # Libreria para mostrar un cuadro de dialogo
 
+from connectorBDD import createTable # Libreria crear la BDD y la tabla
+from connectorBDD import connector
+
 
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
@@ -88,7 +91,8 @@ class Ui_MainWindow(object):
             self.msg.setWindowTitle("Ingreso Correcto")
             self.msg.setText("Bienvenido al aplicativo !!!")
             self.x = self.msg.exec_()
-
+            self.conn = connector()  # Generando conexión a la BDD
+            createTable(self.conn)
             MainWindow.close() # Cerrar la pantalla de login
             self.ventana.show() # Abrir la ventana de gráficos
         else:

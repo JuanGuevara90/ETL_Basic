@@ -1,31 +1,31 @@
-import mysql.connector
+import sqlite3
 import pandas as pd
-from pandas.io import sql
-from sqlalchemy import create_engine
-###
-import datetime as dt # Libreria para el manejo de fechas
+
+
+def createTable(conn):
+    try:
+        mycursor= conn.cursor()
+        mycursor.execute(''' SELECT count(name) FROM sqlite_master WHERE type='table' AND name='data_reg' ''')
+        if mycursor.fetchone()[0]!=1 :
+            mycursor.execute("CREATE TABLE data_reg(id INTEGER PRIMARY KEY AUTOINCREMENT,User_Group text no null,User text no null ,Image text not null,Hours integer not null,Reservations integer not null,Date_start_reservation datetime not null,Date_end_reservations not null,Ano integer not null, Mes not null, Dia not null, Periodo not null)")
+    except Exception as e:
+        print("Error")
 
 def connector():
     try:
-        conn = mysql.connector.connect(
-            host="localhost", #Cambiar a otra PC por la IP
-            user="root",
-            password="",
-            database="info_utpl",
-            port='3306'
-        )
+        conn = sqlite3.connect('info_utpl.db')
         return conn
     except Exception as e:
         print("Error de conexión")
-
 
 
 #Inserciones en la BDD
 def insertTable(conn,df):
     try:
         df_total=df
-        sql= """INSERT INTO data_reg (User_Group,User,Image,Hours,Reservations,Date_start_reservation,Date_end_reservations,Ano,Mes,Dia,Periodo) VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)"""
+        sql= """INSERT INTO data_reg (User_Group,User,Image,Hours,Reservations,Date_start_reservation,Date_end_reservations,Ano,Mes,Dia,Periodo) VALUES (?,?,?,?,?,?,?,?,?,?,?)"""
         mycursor = conn.cursor()
+
         for index, row in df_total.iterrows():
             formatted_date_star=pd.to_datetime(row['Date_start_reservation'],yearfirst = True) # Se establece el formato de datetime
             Date_start_reservation = formatted_date_star.strftime('%Y-%m-%d %H:%M:%S')
@@ -38,6 +38,9 @@ def insertTable(conn,df):
     except Exception as e:
         conn.close()
         print(e)
+
+
+
 
 
 #------------------------------------------------------------ Consultas a la BDD ------------------------------------------------------------------------------
@@ -91,8 +94,7 @@ def reservacionesPorLaboratorio(conn):
 #Horas de uso :   
 def horasDeUso(conn):
     try:
-        #my_data = pd.read_sql("SELECT Date_start_reservation, Date_end_reservations,TIMESTAMPDIFF(HOUR, Date_start_reservation, Date_end_reservations )   FROM data_reg ",conn)
-        my_data = pd.read_sql("SELECT Periodo,sum(TIMESTAMPDIFF(HOUR, Date_start_reservation, Date_end_reservations )) AS contador   FROM data_reg group by Periodo order by Ano asc",conn)
+        my_data = pd.read_sql("Select Periodo, sum(Cast ((JulianDay(Date_end_reservations) - JulianDay(Date_start_reservation)) * 24 As Integer)) as contador from data_reg group by Periodo order by Ano asc",conn)
         #print(my_data)
         return my_data
     except Exception as e:
@@ -104,7 +106,7 @@ def horasDeUso(conn):
 #Horas de uso por laboratorio
 def horasDeUsoPorLaboratorio(conn):
     try:
-        my_data = pd.read_sql("SELECT Image,Periodo, SUM(TIMESTAMPDIFF(HOUR, Date_start_reservation, Date_end_reservations )) as contador  FROM data_reg group by Periodo,Image order by Image asc",conn)
+        my_data = pd.read_sql("SELECT Image,Periodo,  sum(Cast ((JulianDay(Date_end_reservations) - JulianDay(Date_start_reservation)) * 24 As Integer)) as contador  FROM data_reg group by Periodo,Image order by Image asc",conn)
         #my_data = pd.read_sql("SELECT Periodo,sum(TIMESTAMPDIFF(HOUR, Date_start_reservation, Date_end_reservations ))   FROM data_reg group by Periodo",conn)
         #print(my_data)
         return my_data
@@ -129,7 +131,7 @@ def estudiantes(conn):
 #Horas de Uso por Mes
 def horasUsoPorMes(conn):
     try:
-        my_data = pd.read_sql("SELECT Ano,Mes, SUM(TIMESTAMPDIFF(HOUR, Date_start_reservation, Date_end_reservations )) as contador  FROM data_reg group by Ano,Mes order by Ano,Mes asc",conn)
+        my_data = pd.read_sql("SELECT Ano,Mes, sum(Cast ((JulianDay(Date_end_reservations) - JulianDay(Date_start_reservation)) * 24 As Integer)) as contador  FROM data_reg group by Ano,Mes order by Ano,Mes asc",conn)
         #my_data = pd.read_sql("SELECT Periodo,sum(TIMESTAMPDIFF(HOUR, Date_start_reservation, Date_end_reservations ))   FROM data_reg group by Periodo",conn)
         #print(my_data)
         return my_data
@@ -137,4 +139,4 @@ def horasUsoPorMes(conn):
         conn.close()
         print(e)
         return "Error"
-    
+
