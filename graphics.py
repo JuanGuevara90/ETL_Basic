@@ -91,12 +91,16 @@ class Ui_MainWindow_Graphics(object):
             fname = QtWidgets.QFileDialog.getExistingDirectory()
             files = os.listdir(fname)
             self.df_total=JoinFile(fname,files)
-            self.conn = connector()  # Generando conexión a la BDD
-            insertTable(self.conn,self.df_total) # Inserción a la BDD
-            self.msg.setText("Migración Correcta..!!")
-            x = self.msg.exec_()
-            self.pushButtonGraficar.setEnabled(True)  # Se activa el boton graficar una vez realizada la migración
-            
+            if self.df_total.empty!=True:
+                self.conn = connector()  # Generando conexión a la BDD
+                insertTable(self.conn,self.df_total) # Inserción a la BDD
+                self.msg.setText("Migración Correcta..!!")
+                x = self.msg.exec_()
+                self.pushButtonGraficar.setEnabled(True)  # Se activa el boton graficar una vez realizada la migración
+            else:
+                self.msg.setText("Migración Incorrecta..!!")
+                x = self.msg.exec_()
+
 
         except Exception as e:
             self.pushButtonGraficar.setEnabled(False)

@@ -30,7 +30,7 @@ class Ui_MainWindow_Manual(object):
         self.plainTextEdit.setVerticalScrollBarPolicy(QtCore.Qt.ScrollBarAlwaysOn)
         self.plainTextEdit.setObjectName("plainTextEdit")
         self.label = QtWidgets.QLabel(self.frame)
-        self.label.setGeometry(QtCore.QRect(240, 20, 240, 20))
+        self.label.setGeometry(QtCore.QRect(240, 20, 240, 30))
         font = QtGui.QFont()
         font.setPointSize(28)
         self.label.setFont(font)
@@ -51,13 +51,14 @@ class Ui_MainWindow_Manual(object):
         self.statusbar.setObjectName("statusbar")
         MainWindow.setStatusBar(self.statusbar)
 
-        self.plainTextEdit.setStyleSheet("QPlainTextEdit{background-color: rgb(255, 255, 255);}")
+        self.plainTextEdit.setStyleSheet("QPlainTextEdit{background-color: rgb(255, 255, 255);}") # Color para el area de texto
 
+        # Contenido para el manual
         P1="1) Ingresar el usuario y contraseña: Ojo el usuario de contener\n el dominio de la Universidad [usuario]@utpl.edu.ec\n\n"
         self.plainTextEdit.insertPlainText(P1)
         P2="2)Posterior al ingreso se tendra las opciones: Migración, Graficar, Manual y Salir\n\n"
         self.plainTextEdit.insertPlainText(P2)
-        P3="3)En la opción de Migración el programa leer el archivo de excel para luego insertar en la BDD\n\n"
+        P3="3)En la opción de Migración el programa lee un archivo excel para luego insertar en la BDD\n\n"
         self.plainTextEdit.insertPlainText(P3)
         P4="4)Una vez migrado los datos se activa el boton Graficar el cual permitira ver los gráficos estadísticos\n\n"
         self.plainTextEdit.insertPlainText(P4)
