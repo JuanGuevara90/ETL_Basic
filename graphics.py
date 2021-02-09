@@ -104,7 +104,7 @@ class Ui_MainWindow_Graphics(object):
 
         except Exception as e:
             self.pushButtonGraficar.setEnabled(False)
-            self.msg.setText("Por favor seleccione el archivo correcto")
+            self.msg.setText("Se ha producido un error")
             x = self.msg.exec_()
             print(e)
 
