@@ -2,15 +2,23 @@
 
 Version de Python 3.5.6
 
-Librerias----
-PyQt5
-QtChart
-os
-re
-mysql.connector
-pandas
-xlrd
-sys
+Librerias
+
+-PyQt5
+
+-QtChart
+
+-os
+
+-re
+
+-sqlite3
+
+-pandas
+
+-xlrd
+
+-sys
 
 
 
